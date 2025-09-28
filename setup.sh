@@ -10,7 +10,7 @@ if [ "$EUID" -ne 0 ]; then
   echo "Please run this script as root or sudo privileges "
   exit 1
 fi
-Commit
+
 
 
 # Install Java 8, Java 11 & Docker
