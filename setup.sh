@@ -11,6 +11,8 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
+commit
+
 
 
 # Install Java 8, Java 11 & Docker
