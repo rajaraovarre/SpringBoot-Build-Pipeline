@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment { 
-    registry = "dark5980/devopsproject" 
+    registry = "dark5980/devops" 
     registryCredential = 'dockercri' 
   }
 
@@ -75,14 +75,14 @@ pipeline {
     stage('Stage VI: Scan Image') {
       steps { 
         echo "Scanning Image for Vulnerabilities"
-        sh "trivy image --scanners vuln --offline-scan dark5980/devopsproject > trivyresults.txt"
+        sh "trivy image --scanners vuln --offline-scan dark5980/devops > trivyresults.txt"
       }
     }
 
     stage('Stage VII: Smoke Test') {
       steps { 
         echo "Smoke Test the Image"
-        sh "docker run -d --name smokerun -p 9091:9091 dark5980/devopsproject"
+        sh "docker run -d --name smokerun -p 9091:9091 dark5980/devops"
         sh "sleep 90; ./check.sh"
         sh "docker rm --force smokerun"
       }
