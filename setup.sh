@@ -23,10 +23,6 @@ echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main |
 apt update
 apt install -y trivy
 
-
-
-
-
 sleep 5; clear
 echo "   =================================="
 echo "** Your Build server is ready for use **"
