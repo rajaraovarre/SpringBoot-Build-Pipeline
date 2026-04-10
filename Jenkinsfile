@@ -28,16 +28,15 @@ pipeline {
     }
 
   stage('Stage III: SCA') {
-       steps { 
-         sh '''
-             export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-             export PATH=$JAVA_HOME/bin:$PATH
+    steps { 
+        sh '''
+           export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+           export PATH=$JAVA_HOME/bin:$PATH
 
-              mvn org.owasp:dependency-check-maven:7.4.4:check \
-             -DdependencyCheck.skip=true
-            '''
-             }
-     }
+           mvn org.owasp:dependency-check-maven:7.4.4:check || true
+          '''
+       }
+   }
 
    stage('Stage IV: SAST') {
       steps { 
