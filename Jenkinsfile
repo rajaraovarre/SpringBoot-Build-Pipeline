@@ -1,6 +1,6 @@
 
 pipeline {
-  agent { label 'build' }
+  agent any
    environment { 
         registry = "razvarre/springbootapp"
         registryCredential = 'dockerhub' 
