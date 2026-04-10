@@ -28,11 +28,18 @@ pipeline {
     }
 
    stage('Stage III: SCA') {
-      steps { 
-        echo "Running Software Composition Analysis using OWASP Dependency-Check ..."
-        sh "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64; mvn org.owasp:dependency-check-maven:check"
-      }
-    }
+        environment {
+           NVD_API_KEY = credentials('nvd-api-key')   // Jenkins secret
+                    }
+     steps { 
+         echo "Running Software Composition Analysis using OWASP Dependency-Check ..."
+         sh """
+             export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+             mvn org.owasp:dependency-check-maven:12.1.0:check \
+             -Dnvd.apiKey=$NVD_API_KEY
+            """
+           }
+       }
 
    stage('Stage IV: SAST') {
       steps { 
