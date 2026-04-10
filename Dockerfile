@@ -1,4 +1,7 @@
-FROM openjdk:8-jdk
+FROM eclipse-temurin:8-jdk-jammy
+
 WORKDIR /opt/app
+
 COPY target/wezvatech-demo-9739110917.jar app.jar
+
 ENTRYPOINT ["java","-jar","app.jar"]
