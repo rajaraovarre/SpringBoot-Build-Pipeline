@@ -28,15 +28,21 @@ pipeline {
     }
 
   stage('Stage III: SCA') {
-    steps { 
-        sh '''
-           export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-           export PATH=$JAVA_HOME/bin:$PATH
-
-           mvn org.owasp:dependency-check-maven:7.4.4:check || true
-          '''
-       }
-   }
+       environment {
+          NVD_API_KEY = credentials('nvd-api-key')
+            }
+     steps {
+          echo "Running Software Composition Analysis using OWASP Dependency-Check..."
+          sh '''
+             export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+             export PATH=$JAVA_HOME/bin:$PATH
+             mvn org.owasp:dependency-check-maven:7.4.4:check \
+             -Dnvd.apiKey=$NVD_API_KEY \
+             -Dnvd.delay=10000 \
+             -Dnvd.maxRetryCount=10
+            '''
+        }
+     }
 
    stage('Stage IV: SAST') {
       steps { 
