@@ -96,7 +96,7 @@ pipeline {
    stage('Stage IX: Trigger Deployment'){
       steps { 
        script {
-        TAG = "$BUILD_NUMBER"
+        def TAG = "${BUILD_NUMBER}"
          echo "Trigger CD Pipeline"
           build wait: false, job: 'SpringBoot-Deployment-Pipeline', parameters: [password(name: 'PASSWD', description: 'Please Enter your Github password', value: params.PASSWD),string(name: 'IMAGETAG', value: TAG)]
        }
